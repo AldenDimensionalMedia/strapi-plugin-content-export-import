@@ -13,7 +13,7 @@ cd /<path-to-your-strapi-project
 cd plugins
 
 # clone the plugin code into a folder and skip the prefix
-git clone git@github.com:lazurey/strapi-plugin-content-export-import.git content-export-import
+git clone git@github.com:Ravanger/strapi-plugin-content-export-import.git content-export-import
 # install dependencies
 cd content-export-import && yarn install
 # build the plugin
@@ -33,12 +33,14 @@ Running at http://localhost:8000/
 ## Features
 
 - Support JSON export & import
+- Support CSV export
+- "Import" hidden from admin panel
+- Added Users to export tab
 - Delete all content of a type
 
 **Not supported**
 
 - Media fields, e.g. image, video, etc.
-- Any other file type, e.g. csv, etc.
 
 ## References
 
