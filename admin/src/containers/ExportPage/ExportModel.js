@@ -5,6 +5,7 @@ import { fetchEntries } from "../../utils/contentApis";
 import { HFlex, ModelItem } from "./ui-components";
 import JsonDataDisplay from "../../components/JsonDataDisplay";
 import { unparse } from "papaparse";
+import flatten from "flat";
 
 const ExportModel = ({ model }) => {
   const [fetching, setFetching] = useState(false);
@@ -41,7 +42,8 @@ const ExportModel = ({ model }) => {
     try {
       const current = new Date();
       content.sort((a, b) => a.id - b.id);
-      const csv = unparse(content);
+      const flattenedContent = flatten(content);
+      const csv = unparse(flattenedContent);
       const file = new File([csv], `${model.apiID}-${current.getTime()}.csv`, {
         type: "text/csv;charset=utf-8",
       });
