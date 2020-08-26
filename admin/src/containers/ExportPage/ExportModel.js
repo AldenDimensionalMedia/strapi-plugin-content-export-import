@@ -21,24 +21,26 @@ const ExportModel = ({ model }) => {
   };
 
   const downloadJson = () => {
-    const current = new Date();
-    content.id && content.sort((a, b) => a.id - b.id);
-    const file = new File(
-      [JSON.stringify(content)],
-      `${model.apiID}-${current.getTime()}.json`,
-      {
-        type: "application/json;charset=utf-8",
-      }
-    );
-    saveAs(file);
+    try {
+      const current = new Date();
+      content.sort((a, b) => a.id - b.id);
+      const file = new File(
+        [JSON.stringify(content)],
+        `${model.apiID}-${current.getTime()}.json`,
+        {
+          type: "application/json;charset=utf-8",
+        }
+      );
+      saveAs(file);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const downloadCSV = () => {
     try {
       const current = new Date();
-      content.id && content.sort((a, b) => a.id - b.id);
-      // const parser = new Parser();
-      // const csv = parser.parse(content);
+      content.sort((a, b) => a.id - b.id);
       const csv = unparse(content);
       const file = new File([csv], `${model.apiID}-${current.getTime()}.csv`, {
         type: "text/csv;charset=utf-8",
