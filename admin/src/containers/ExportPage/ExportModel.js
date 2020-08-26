@@ -22,6 +22,7 @@ const ExportModel = ({ model }) => {
 
   const downloadJson = () => {
     const current = new Date();
+    content.id && content.sort((a, b) => a.id - b.id);
     const file = new File(
       [JSON.stringify(content)],
       `${model.apiID}-${current.getTime()}.json`,
@@ -37,6 +38,7 @@ const ExportModel = ({ model }) => {
       const current = new Date();
       const parser = new Parser();
       const csv = parser.parse(content);
+      content.id && content.sort((a, b) => a.id - b.id);
       const file = new File([csv], `${model.apiID}-${current.getTime()}.csv`, {
         type: "text/csv;charset=utf-8",
       });
