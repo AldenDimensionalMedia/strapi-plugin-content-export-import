@@ -44,7 +44,7 @@ const ExportModel = ({ model }) => {
     try {
       const current = new Date();
       content.sort((a, b) => a.id - b.id);
-      const csv = parse(content, { transforms: flatten({ arrays: true }) });
+      const csv = parse(content, { transforms: flatten() });
       const file = new File([csv], `${model.apiID}-${current.getTime()}.csv`, {
         type: "text/csv;charset=utf-8",
       });
