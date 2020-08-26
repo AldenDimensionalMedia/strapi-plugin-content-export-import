@@ -4,7 +4,7 @@ import { saveAs } from "file-saver";
 import { fetchEntries } from "../../utils/contentApis";
 import { HFlex, ModelItem } from "./ui-components";
 import JsonDataDisplay from "../../components/JsonDataDisplay";
-import { Parser } from "json2csv";
+import { unparse } from "papaparse";
 
 const ExportModel = ({ model }) => {
   const [fetching, setFetching] = useState(false);
@@ -36,9 +36,10 @@ const ExportModel = ({ model }) => {
   const downloadCSV = () => {
     try {
       const current = new Date();
-      const parser = new Parser();
-      const csv = parser.parse(content);
       content.id && content.sort((a, b) => a.id - b.id);
+      // const parser = new Parser();
+      // const csv = parser.parse(content);
+      const csv = unparse(content);
       const file = new File([csv], `${model.apiID}-${current.getTime()}.csv`, {
         type: "text/csv;charset=utf-8",
       });
