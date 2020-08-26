@@ -6,7 +6,7 @@ import { HFlex, ModelItem } from "./ui-components";
 import JsonDataDisplay from "../../components/JsonDataDisplay";
 import { parse } from "json2csv";
 const {
-  transforms: { flatten },
+  transforms: { flatten, unwind },
 } = require("json2csv");
 
 const ExportModel = ({ model }) => {
@@ -44,7 +44,9 @@ const ExportModel = ({ model }) => {
     try {
       const current = new Date();
       content.sort((a, b) => a.id - b.id);
-      const csv = parse(content, { transforms: flatten() });
+      const csv = parse(content, {
+        transforms: [flatten(), unwind({ paths: ["order_data"] })],
+      });
       const file = new File([csv], `${model.apiID}-${current.getTime()}.csv`, {
         type: "text/csv;charset=utf-8",
       });
