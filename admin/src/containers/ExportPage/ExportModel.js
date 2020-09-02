@@ -40,13 +40,19 @@ const ExportModel = ({ model }) => {
     }
   };
 
+  const getArrayKeys = (obj) => {
+    return Object.keys(obj).reduce((acc, key) => {
+      return obj[key] instanceof Array ? acc.concat(key) : acc;
+    }, []);
+  };
+
   const downloadCSV = () => {
     try {
       const current = new Date();
       content.sort((a, b) => a.id - b.id);
       const csv = parse(content, {
         transforms: [
-          unwind({ paths: ["order_data"], blankOut: true }),
+          unwind({ paths: getArrayKeys(content), blankOut: true }),
           flatten({ separator: "__" }),
         ],
       });
