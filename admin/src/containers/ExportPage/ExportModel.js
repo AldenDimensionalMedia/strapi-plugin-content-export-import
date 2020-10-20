@@ -52,7 +52,8 @@ const ExportModel = ({ model }) => {
       content.sort((a, b) => a.id - b.id);
       const csv = parse(content, {
         transforms: [
-          unwind({ paths: getArrayKeys(content), blankOut: true }),
+          // unwind({ paths: getArrayKeys(content), blankOut: true }),
+          unwind({ paths: ["order_data"], blankOut: true }),
           flatten({ separator: "__" }),
         ],
       });
